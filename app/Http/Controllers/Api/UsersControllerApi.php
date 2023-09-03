@@ -1,18 +1,31 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Interfaces\UsersRepositoryInterface;
 use App\Models\Users;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
-class UsersController extends Controller
+class UsersControllerApi extends Controller
 {
+    private UsersRepositoryInterface $userRepository;
+
+    public function __construct(UsersRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        return response()->json([
+            'users' => $this->userRepository->getAllUsers()
+        ]);
     }
 
     /**
