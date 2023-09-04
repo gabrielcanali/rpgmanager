@@ -23,9 +23,15 @@ class UsersControllerApi extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json([
-            'users' => $this->userRepository->getAllUsers()
-        ]);
+        try {
+            return response()->json([
+                'users' => $this->userRepository->getAllUsers()
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'error' => $exception
+            ]);
+        }
     }
 
     /**
