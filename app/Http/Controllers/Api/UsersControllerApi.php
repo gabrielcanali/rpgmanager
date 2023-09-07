@@ -8,6 +8,7 @@ use App\Models\Users;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class UsersControllerApi extends Controller
 {
@@ -39,7 +40,34 @@ class UsersControllerApi extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userData = $request->all();
+
+        $rules = [
+            'display_name'          => ['required', 'unique:users', 'max:40'],
+            'email'                 => ['required', 'unique:users', 'max:80'],
+            'password'              => ['required', 'confirmed', 'max:60'],
+            'profile_image'         => ['nullable', 'file', 'mimes:png,jpg'],
+            'role'                  => ['required']
+        ]; 
+
+        $validator = Validator::make($userData, $rules);
+
+        if($validator->fails()) {
+            return response()->json([
+                'error' => $validator->messages()
+            ]);
+        }
+
+        try {
+            $createdUser = $this->userRepository->createUser($userData);
+            return response()->json([
+                'user' => $createdUser
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'error' => $exception->getMessage()
+            ]);
+        }
     }
 
     /**

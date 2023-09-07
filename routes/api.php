@@ -19,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+// TODO: Add auth (?) to API
 Route::apiResource('users', UsersControllerApi::class);
