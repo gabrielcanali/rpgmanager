@@ -24,6 +24,7 @@ class UsersRepository implements UsersRepositoryInterface
 
     public function createUser(array $userData) 
     {
+        // TODO: encrypt password
         return Users::create($userData);
     }
 
