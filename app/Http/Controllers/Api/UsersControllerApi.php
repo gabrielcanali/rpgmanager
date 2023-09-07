@@ -29,7 +29,7 @@ class UsersControllerApi extends Controller
             ]);
         } catch (\Exception $exception) {
             return response()->json([
-                'error' => $exception
+                'error' => $exception->getMessage()
             ]);
         }
     }
