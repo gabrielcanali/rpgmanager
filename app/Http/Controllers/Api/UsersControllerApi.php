@@ -72,9 +72,26 @@ class UsersControllerApi extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Request $request): JsonResponse
     {
-        //
+        $userId = $request->get('id');
+        $validator = Validator::make($userId, ['id' => 'required']);
+        
+        if($validator->fails()) {
+            return response()->json([
+                'error' => $validator->messages()
+            ]);
+        }
+
+        try {
+            return response()->json([
+                'users' => $this->userRepository->getUserById($userId)
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'error' => $exception->getMessage()
+            ]);
+        }
     }
 
     /**
