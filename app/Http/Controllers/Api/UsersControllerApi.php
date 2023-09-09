@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\UsersRepositoryInterface;
-use App\Models\Users;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -43,11 +42,11 @@ class UsersControllerApi extends Controller
         $userData = $request->all();
 
         $rules = [
+            'status'                => ['required'],
             'display_name'          => ['required', 'unique:users', 'max:40'],
             'email'                 => ['required', 'unique:users', 'max:80'],
             'password'              => ['required', 'confirmed', 'max:60'],
-            'profile_image'         => ['nullable', 'file', 'mimes:png,jpg'],
-            'role'                  => ['required']
+            'profile_image'         => ['nullable', 'file', 'mimes:png,jpg']
         ]; 
 
         $validator = Validator::make($userData, $rules);
@@ -73,7 +72,7 @@ class UsersControllerApi extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Users $users)
+    public function show()
     {
         //
     }
@@ -81,7 +80,7 @@ class UsersControllerApi extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Users $users)
+    public function update(Request $request)
     {
         //
     }
@@ -89,7 +88,7 @@ class UsersControllerApi extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Users $users)
+    public function destroy()
     {
         //
     }
