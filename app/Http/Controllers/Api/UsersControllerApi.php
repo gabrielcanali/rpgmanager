@@ -74,14 +74,20 @@ class UsersControllerApi extends Controller
      */
     public function show($userId): JsonResponse
     {
+        if (!$userId) {
+            return response()->json([
+                'error' => 'ID de usuário não informado.'
+            ], 400);
+        }
+
         try {
             return response()->json([
                 'user' => $this->userRepository->getUserById($userId)
             ]);
         } catch (\Exception $exception) {
             return response()->json([
-                'error' => $exception->getMessage()
-            ]);
+                'error' => 'Usuário não encontrado.'
+            ], 404);
         }
     }
 
