@@ -42,11 +42,11 @@ class UsersControllerApi extends Controller
         $userData = $request->all();
 
         $rules = [
+            'status'                => ['required'],
             'display_name'          => ['required', 'unique:users', 'max:40'],
             'email'                 => ['required', 'unique:users', 'max:80'],
             'password'              => ['required', 'confirmed', 'max:60'],
-            'profile_image'         => ['nullable', 'file', 'mimes:png,jpg'],
-            'role'                  => ['required']
+            'profile_image'         => ['nullable', 'file', 'mimes:png,jpg']
         ]; 
 
         $validator = Validator::make($userData, $rules);
