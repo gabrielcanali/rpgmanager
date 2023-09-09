@@ -26,14 +26,14 @@ class UsersRepository implements UsersRepositoryInterface
     * Create a new User
     *
     * 
-    * @param array $userData
-    * $userData = [  
+    * @param array $userData 
+    * [  
+    *   'status' => (boolean)  
     *   'display_name' => (string, max:40)  
     *   'email' => (string, max:80)  
     *   'password' => (string, max:60)  
     *   'password_confirmation' => (string, confirmed)  
     *   'profile_image' => (file, mimes:png,jpg)  
-    *   'role' => (string)  
     * ]
     */
     public function createUser(array $userData) 
