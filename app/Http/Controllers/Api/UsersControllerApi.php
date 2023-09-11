@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UsersControllerApi extends Controller
 {
@@ -42,9 +43,8 @@ class UsersControllerApi extends Controller
         $userData = $request->all();
 
         $rules = [
-            'status'                => ['required'],
             'display_name'          => ['required', 'unique:users', 'max:40'],
-            'email'                 => ['required', 'unique:users', 'max:80'],
+            'email'                 => ['required', 'email', 'unique:users', 'max:80'],
             'password'              => ['required', 'confirmed', 'max:60'],
             'profile_image'         => ['nullable', 'file', 'mimes:png,jpg']
         ]; 
@@ -58,9 +58,9 @@ class UsersControllerApi extends Controller
         }
 
         try {
-            $createdUser = $this->userRepository->createUser($userData);
+            $createdUserData = $this->userRepository->createUser($userData);
             return response()->json([
-                'user' => $createdUser
+                'user' => $createdUserData
             ]);
         } catch (\Exception $exception) {
             return response()->json([
@@ -94,9 +94,42 @@ class UsersControllerApi extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $userId)
     {
-        //
+        if (!$userId) {
+            return response()->json([
+                'error' => 'ID de usuário não informado.'
+            ], 400);
+        }
+
+        $newUserData = $request->all();
+
+        $rules = [
+            'status'                => ['required'],
+            'display_name'          => ['required', Rule::unique('users')->ignore($userId), 'max:40'],
+            'email'                 => ['required', Rule::unique('users')->ignore($userId), 'max:80'],
+            'password'              => ['required', 'confirmed', 'max:60'],
+            'profile_image'         => ['nullable', 'file', 'mimes:png,jpg']
+        ]; 
+
+        $validator = Validator::make($newUserData, $rules);
+
+        if($validator->fails()) {
+            return response()->json([
+                'error' => $validator->messages()
+            ]);
+        }
+
+        try {
+            $updatedUserData = $this->userRepository->updateUser($userId, $newUserData);
+            return response()->json([
+                'user' => $updatedUserData
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'error' => $exception->getMessage()
+            ]);
+        }
     }
 
     /**
