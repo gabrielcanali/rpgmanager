@@ -43,6 +43,7 @@ class UsersControllerApi extends Controller
         $userData = $request->all();
 
         $rules = [
+            'status'                => ['nullable'],
             'display_name'          => ['required', 'unique:users', 'max:40'],
             'email'                 => ['required', 'email', 'unique:users', 'max:80'],
             'password'              => ['required', 'confirmed', 'max:60'],
