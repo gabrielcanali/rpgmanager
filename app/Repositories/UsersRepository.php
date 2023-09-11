@@ -17,11 +17,6 @@ class UsersRepository implements UsersRepositoryInterface
         return Users::findOrFail($userId);
     }
 
-    public function deleteUser($userId) 
-    {
-        Users::destroy($userId);
-    }
-
     /**
     * Create a new User
     *
@@ -45,5 +40,10 @@ class UsersRepository implements UsersRepositoryInterface
     public function updateUser($userId, array $newUserData) 
     {
         return Users::whereId($userId)->update($newUserData);
+    }
+
+    public function deleteUser($userId) 
+    {
+        Users::destroy($userId);
     }
 }
