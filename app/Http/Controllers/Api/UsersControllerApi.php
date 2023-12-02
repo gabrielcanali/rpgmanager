@@ -47,7 +47,7 @@ class UsersControllerApi extends Controller
             'display_name'          => ['required', 'unique:users', 'max:40'],
             'email'                 => ['required', 'email', 'unique:users', 'max:80'],
             'password'              => ['required', 'confirmed', 'max:60'],
-            'profile_image'         => ['nullable', 'file', 'mimes:png,jpg']
+            'profile_image'         => ['nullable', 'file', 'mimes:png,jpg', 'dimensions:max_width=800,max_height=800', 'max:1000']
         ]; 
 
         $validator = Validator::make($userData, $rules);
