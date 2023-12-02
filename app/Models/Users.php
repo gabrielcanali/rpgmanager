@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Users extends Model
+class Users extends Authenticatable
 {
     use HasFactory;
 
@@ -25,8 +25,7 @@ class Users extends Model
         'display_name',
         'email',
         'password',
-        'profile_image',
-        'role'
+        'profile_image'
     ];
 
     /**
