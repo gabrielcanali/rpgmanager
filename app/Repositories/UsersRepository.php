@@ -33,8 +33,6 @@ class UsersRepository implements UsersRepositoryInterface
     */
     public function createUser(array $userData) 
     {
-        // TODO: encrypt password
-
         if(!empty($userData['profile_image'])) {
             $profileImage = time().'.'.$userData['profile_image']->extension();
             $userData['profile_image']->move('profile-images', $profileImage);
