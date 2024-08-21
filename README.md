@@ -83,7 +83,7 @@ Num geral esse projeto é um estudo das tecnologias Laravel e VueJs. Tem como es
 ## Contribuidores 
 
 <a href="https://github.com/gabrielcanali/rpgmanager/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=gabrielcanali/rpgmanager" />
+  <img src="https://contrib.rocks/image?repo=gabrielcanali/rpgmanager&v1"/>
 </a>
 
 <!--
