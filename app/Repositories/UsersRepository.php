@@ -35,7 +35,7 @@ class UsersRepository implements UsersRepositoryInterface
     {
         if(!empty($userData['profile_image'])) {
             $profileImage = time().'.'.$userData['profile_image']->extension();
-            $userData['profile_image']->move('profile-images', $profileImage);
+            $userData['profile_image']->move(public_path('/profile-images'), $profileImage);
             $userData['profile_image'] = $profileImage;
         }
 
