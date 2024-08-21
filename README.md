@@ -3,7 +3,7 @@
 * https://shields.io/badges/static-badge
 -->
 <div align="center">
-    <a href="https://github.com/gabrielcanali/rpgmanager/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/gabrielcanali/rpgmanager?color=d2452d&style=for-the-badge"></a>
+    <a href="https://github.com/gabrielcanali/rpgmanager/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/gabrielcanali/rpgmanager?color=d2452d&style=for-the-badge&v1"></a>
     <a href="https://github.com/gabrielcanali/rpgmanager/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/gabrielcanali/rpgmanager?color=d2452d&label=Project%20Stars&style=for-the-badge"></a>
     <a href="https://github.com/gabrielcanali/rpgmanager/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/gabrielcanali/rpgmanager?color=d2452d&label=issues&style=for-the-badge"></a>
     <a href="https://github.com/gabrielcanali/rpgmanager/forks"><img alt="GitHub forks" src="https://img.shields.io/github/forks/gabrielcanali/rpgmanager?color=d2452d&label=forks&style=for-the-badge"></a>
