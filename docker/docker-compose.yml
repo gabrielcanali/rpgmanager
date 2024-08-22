@@ -11,8 +11,6 @@ services:
       - ../php.ini:/usr/local/etc/php/conf.d/php.ini
     networks:
       - app-network
-    links:
-      - mysql
 
   nginx:
     image: nginx
@@ -24,8 +22,6 @@ services:
     volumes:
       - ../:/var/www/rpgmanager/
       - ./config/nginx.conf:/etc/nginx/conf.d/rpgmanager.conf
-    links:
-      - php
     networks:
       - app-network  
 
