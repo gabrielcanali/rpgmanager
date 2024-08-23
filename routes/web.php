@@ -17,12 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontController::class, 'index'])->name('index');
 
-Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth');
-
-Route::post('authenticate', [DashboardController::class, 'authenticate'])->name('authenticate');
+Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 Route::get('logout', [DashboardController::class, 'logout'])->name('logout');
 
-Route::get('login', function () { 
-    return redirect()->to('/'); 
-})->name('login');
+Route::get('login', [DashboardController::class, 'login'])->name('login');
