@@ -16,7 +16,7 @@ function login(authUrl, data) {
                     icon: "success",
                     showConfirmButton: true,
                     willClose: () => {
-                        // location.href = json.redirect
+                        location.href = json.redirect
                     } 
                 })
             } else {
@@ -41,9 +41,9 @@ function login(authUrl, data) {
 
 function setLoading(loading = true) {
     if (loading) {
-        form.querySelector('button').getAttribute('disabled', true)
+        // form.querySelector('button').getAttribute('disabled', true)
     } else {
-        form.querySelector('button').removeAttribute('disabled')
+        // form.querySelector('button').removeAttribute('disabled')
     }
 }
 
