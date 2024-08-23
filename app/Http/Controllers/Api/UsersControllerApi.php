@@ -7,6 +7,8 @@ use App\Interfaces\UsersRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -20,7 +22,7 @@ class UsersControllerApi extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display all users account info
      */
     public function index(): JsonResponse
     {
@@ -36,7 +38,7 @@ class UsersControllerApi extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create user
      */
     public function store(Request $request)
     {
@@ -71,7 +73,9 @@ class UsersControllerApi extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display a user account info
+     * 
+     * @param int $userId
      */
     public function show($userId): JsonResponse
     {
@@ -93,10 +97,12 @@ class UsersControllerApi extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Edit user account info
      */
     public function update(Request $request, $userId)
     {
+        // TODO: Auth validation
+
         if (!$userId) {
             return response()->json([
                 'error' => 'ID de usuário não informado.'
@@ -134,10 +140,58 @@ class UsersControllerApi extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete user account
      */
     public function destroy()
     {
-        //
+        // TODO: Auth validation AND remove user
+    }
+
+    /** 
+    * Make user auth
+    * 
+    * @param Request $request
+    */
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->all(['email', 'password']);
+
+        if (!$request) {
+            return response()->json([
+                'error'   => true,
+                'message' => 'Credenciais não informadas.'
+            ], 400);
+        }
+
+        $validator = Validator::make($credentials, [
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'error'   => true,
+                'message' => $validator->messages()->first()
+            ], 400);
+        }
+
+        if(Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $request->session()->put('DASHBOARD_ACCESS_TOKEN', time() . '-' . Str::uuid());
+            
+            // TODO: 
+            // - Log info login
+            // - Create session data ?
+            
+            return response()->json([
+                'success'  => true,
+                'redirect' => route('dashboard')
+            ], 200);
+        }
+
+        return response()->json([
+            'error'   => true,
+            'message' => 'E-mail e/ou senha incorretos. Tente novamente.'
+        ], 400);
     }
 }

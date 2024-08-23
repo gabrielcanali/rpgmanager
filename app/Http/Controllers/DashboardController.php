@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class DashboardController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Dashboard front page
      */
     public function index()
     {
@@ -19,10 +19,14 @@ class DashboardController extends Controller
     /**
     * Autenticação Login
     * 
+    * @deprecated
+    *
     * @param Request $request
     */
     public function authenticate(Request $request)
     {
+        return redirect('/');
+
         if (!$request) {
             return response()->json([
                 'error' => 'Credenciais não informadas.'
@@ -45,10 +49,20 @@ class DashboardController extends Controller
             'email' => 'E-mail e/ou senha incorretos. Tente novamente.',
         ])->onlyInput('email');
     }
-
     
     /**
-    * Logout do Usuário
+    * User login front route
+    */
+    public function login()
+    {
+        if (Auth::user() && session()->get('DASHBOARD_ACCESS_TOKEN')) {
+            return redirect('dashboard');
+        }
+        return view('login');
+    }
+    
+    /**
+    * User logout front route
     */
     public function logout()
     {
