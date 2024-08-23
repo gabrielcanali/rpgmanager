@@ -12,6 +12,7 @@ class FrontController extends Controller
      */
     public function index(Request $request)
     {
+        /*
         if (Auth::user() && session()->get('DASHBOARD_ACCESS_TOKEN')) {
             return redirect('dashboard');
         }
@@ -19,6 +20,7 @@ class FrontController extends Controller
         if ($request->get('accessKey') && $request->get('accessKey') == env('DASHBOARD_ACCESS_KEY')) {
             return view('login');
         }
+        */
         
         return view('maintenance');
     }

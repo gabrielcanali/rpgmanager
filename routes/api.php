@@ -21,3 +21,5 @@ use Illuminate\Support\Facades\Route;
 
 // TODO: Add auth (?) to API
 Route::apiResource('users', UsersControllerApi::class);
+
+Route::post('auth', [UsersControllerApi::class, 'authenticate'])->name('users.authenticate');
