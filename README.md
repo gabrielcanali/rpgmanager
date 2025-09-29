@@ -73,8 +73,19 @@ Num geral esse projeto é um estudo das tecnologias Laravel e VueJs. Tem como es
 -->
 
 ## Roadmap
-- [x] Criação de um sistema de login básico.
-- [ ] ...
+
+- [x] Versão Inicial
+	- [x] Login básico
+	- [x] Imagem do perfil
+	- [x] Criptografia da senha básica
+- [ ] Melhorias
+	- [ ] Login
+		- [ ] Front-end para criação de conta
+		- [ ] Login com Google
+		- [ ] ReCaptcha
+		- [ ] Recuperação de senha
+		- [ ] Autenticação de dois fatores
+		- [ ] Criptografia mais segura
 
 <!--
 * Apoiadores/Contribuidores do projeto
